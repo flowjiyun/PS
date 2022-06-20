@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-// 맨위 b 일때 번갈아 가면서 맞는지 확인 안맞으면 cnt++
 using namespace std;
 string board[50];
 char ans[50][50];
