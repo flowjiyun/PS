@@ -12,7 +12,7 @@ int binary_search(int val)
     int left = 0;
     int right = n - 1;
     int mid = (left + right) / 2;
-    while (left <= right)
+    while (left <= right) 
     {
         if (input1[mid] == val)
             return 1;
