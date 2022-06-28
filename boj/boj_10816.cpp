@@ -1,15 +1,25 @@
 #include <iostream>
-#include <cmath>
-
+#include <map>
 using namespace std;
-
-int main(void)
-{
-    ios:: sync_with_stdio(0);
-    cin.tie(0);
-    int n = 1024;
-    double result = log2(n);
-    cout << result;
-    return (0);
-
+map<int, int> cards;
+int main()
+{    
+    cin.sync_with_stdio(false);    
+    cin.tie(NULL);    
+    int n, m;    
+    cin >> n;    
+    while (n--) 
+    {        
+        int num;        
+        cin >> num;        
+        cards[num]++;    
+    }    
+    cin >> m;    
+    while (m--) 
+    {        
+        int num;        
+        cin >> num;        
+        cout << cards[num] << ' ';    
+    }     
+    return 0;
 }
