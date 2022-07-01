@@ -8,28 +8,28 @@ int main(void)
     ios::sync_with_stdio(0);
     cin.tie(0);
     int n, k;
-    queue<int> Q;
+    queue<int> q;
     cin >> n >> k;
     for (int i = 1; i <= n; i++)
     {
-        Q.push(i);
+        q.push(i);
     }
     cout << '<';
-    while (!Q.empty())
+    while (!q.empty())
     {
         for (int i = 1; i <= k; i++)
         {
             if (i % k != 0)
             {
-                Q.push(Q.front());
-                Q.pop();
+                q.push(q.front());
+                q.pop();
             }
             else
             {
-                cout << Q.front();
-                if (Q.size() != 1)
+                cout << q.front();
+                if (q.size() != 1)
                     cout << ',' << ' ';
-                Q.pop();
+                q.pop();
             }
         }
     }
