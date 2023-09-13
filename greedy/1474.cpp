@@ -14,6 +14,7 @@ int main() {
 
   vector<string> words(n);
   vector<string> ans(2 * n - 1);
+  // a --- b ---- c -- d
   int wordLen = 0;
   for (int i = 0; i < n; ++i) {
     cin >> words[i];
