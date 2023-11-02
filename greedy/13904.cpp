@@ -12,7 +12,7 @@ int main() {
 
   int n;
   cin >> n;
-  vector<pair<int, int>> problems(n);
+  vector<pair<int, int> > problems(n);
   for (int i = 0; i < n; ++i) {
     cin >> problems[i].first >> problems[i].second;
   }
