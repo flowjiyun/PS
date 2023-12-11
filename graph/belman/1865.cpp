@@ -13,7 +13,7 @@ vector<int> dist;
 
 
 void solve(int n) {
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n - 1; ++i) {
         for (int j = 0; j < graph.size(); ++j) {
             int from = graph[j].first.first;
             int to = graph[j].first.second;
