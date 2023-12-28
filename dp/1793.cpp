@@ -1,7 +1,7 @@
-#include <iostream>
-#include <vector>
 #include <algorithm>
+#include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -15,6 +15,7 @@ void dp(int n) {
         string n2 = ans[i - 2];
         string n3 = ans[i - 2];
         int sum = 0;
+
         while (!n1.empty() || !n2.empty() || !n3.empty() || sum) {
             if (n1 != "") {
                 sum += n1.back() - '0';
