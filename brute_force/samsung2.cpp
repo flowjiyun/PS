@@ -69,7 +69,7 @@ int main(void) {
 
         // 각 요원 조합 별 최적의 값 구하기
         int minVal = MAX_VAL;
-        // vector<int> pickedCombi;
+        vector<int> pickedCombi;
         for (auto combi : combiList) {
             for (auto permu : permuList) {
                 int curVal = 0;
@@ -79,26 +79,31 @@ int main(void) {
                     int remain = abilSum - pickAbilVal;
                     curVal += remain;
                 }
-                // if (minVal >= curVal) {
-                //     minVal = curVal;
-                //     pickedCombi = combi;
-                // }
-                minVal = min(minVal, curVal);
+                if (minVal >= curVal) {
+                    minVal = curVal;
+                    pickedCombi = combi;
+                }
+                // minVal = min(minVal, curVal);
             }
         }
-        // int remainAgentSum = 0;
-        // for (const auto [key, val] : agentInfo) {
-        //     if (key != pickedCombi[0] && key != pickedCombi[1] && key != pickedCombi[2]) {
-        //         int curSum = val[3] - val[4];
-        //         remainAgentSum += curSum;
-        //     }
-        // }
-        // cout << "minVal : "
-        //      << minVal << "\n";
-        // cout << "remainAgentSum : "
-        //      << remainAgentSum << "\n";
-        // int result = minVal + remainAgentSum;
-        cout << "#" << test_case << " " << minVal << '\n';
+        cout << "pickedCombi : " << pickedCombi[0] << " " << pickedCombi[1] << " " << pickedCombi[2] << '\n';
+        int remainAgentSum = 0;
+        for (const auto [key, val] : agentInfo) {
+            if (key != pickedCombi[0] && key != pickedCombi[1] && key != pickedCombi[2]) {
+                int curSum = val[3] - val[4];
+                remainAgentSum += curSum;
+            }
+        }
+        cout << "minVal : "
+             << minVal << "\n";
+        cout << "remainAgentSum : "
+             << remainAgentSum << "\n";
+        int result = minVal + remainAgentSum;
+        cout << "#" << test_case << " " << result << '\n';
+        agentInfo.clear();
+        combiList.clear();
+        curCombi.clear();
+        pickedCombi.clear();
     }
 
     return 0;
