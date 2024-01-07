@@ -11,6 +11,8 @@ unordered_map<int, vector<int>> agentInfo;  // 힘, 지능, 민첩, 총합, 능�
 vector<vector<int>> combiList;
 vector<vector<int>> permuList;
 vector<int> curCombi;
+vector<int> pickedCombi;
+
 void makeCombination(int n, int k, int cnt, int cur) {
     if (cnt == k) {
         combiList.push_back(curCombi);
@@ -25,9 +27,9 @@ void makeCombination(int n, int k, int cnt, int cur) {
 }
 
 int main(void) {
-    // ios::sync_with_stdio(0);
-    // cin.tie(0);
-    // cout.tie(0);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
     int test_case;
     int T;
     vector<int> elements = {0, 1, 2};
@@ -58,9 +60,10 @@ int main(void) {
 
         // 요원 수가 모자랄 경우 -1
         if (n < 3) {
-            cout << "here"
-                 << "\n";
+            // cout << "here"
+            //      << "\n";
             cout << "#" << test_case << " " << -1 << '\n';
+            agentInfo.clear();
             continue;
         }
 
@@ -69,8 +72,14 @@ int main(void) {
 
         // 각 요원 조합 별 최적의 값 구하기
         int minVal = MAX_VAL;
-        vector<int> pickedCombi;
         for (auto combi : combiList) {
+            int remainAgentSum = 0;
+            for (const auto [key, val] : agentInfo) {
+                if (key != combi[0] && key != combi[1] && key != combi[2]) {
+                    int curSum = val[3] - val[4];
+                    remainAgentSum += curSum;
+                }
+            }
             for (auto permu : permuList) {
                 int curVal = 0;
                 for (int index = 0; index < 3; ++index) {
@@ -79,27 +88,29 @@ int main(void) {
                     int remain = abilSum - pickAbilVal;
                     curVal += remain;
                 }
-                if (minVal >= curVal) {
-                    minVal = curVal;
-                    pickedCombi = combi;
-                }
-                // minVal = min(minVal, curVal);
+                curVal += remainAgentSum;
+                // if (minVal >= curVal) {
+                //     minVal = curVal;
+                //     pickedCombi = combi;
+                // }
+                minVal = min(minVal, curVal);
             }
         }
-        cout << "pickedCombi : " << pickedCombi[0] << " " << pickedCombi[1] << " " << pickedCombi[2] << '\n';
-        int remainAgentSum = 0;
-        for (const auto [key, val] : agentInfo) {
-            if (key != pickedCombi[0] && key != pickedCombi[1] && key != pickedCombi[2]) {
-                int curSum = val[3] - val[4];
-                remainAgentSum += curSum;
-            }
-        }
-        cout << "minVal : "
-             << minVal << "\n";
-        cout << "remainAgentSum : "
-             << remainAgentSum << "\n";
-        int result = minVal + remainAgentSum;
-        cout << "#" << test_case << " " << result << '\n';
+        // cout << "pickedCombi : " << pickedCombi[0] << " " << pickedCombi[1] << " " << pickedCombi[2] << '\n';
+        // int remainAgentSum = 0;
+        // for (const auto [key, val] : agentInfo) {
+        //     if (key != pickedCombi[0] && key != pickedCombi[1] && key != pickedCombi[2]) {
+        //         int curSum = val[3] - val[4];
+        //         remainAgentSum += curSum;
+        //     }
+        // }
+        // cout << "minVal : "
+        //      << minVal << "\n";
+        // cout << "remainAgentSum : "
+        //      << remainAgentSum << "\n";
+        // int result = minVal + remainAgentSum;
+        // cout << "#" << test_case << " " << result << '\n';
+        cout << "#" << test_case << " " << minVal << '\n';
         agentInfo.clear();
         combiList.clear();
         curCombi.clear();
