@@ -1,17 +1,13 @@
 #include <algorithm>
 #include <iostream>
-#include <unordered_map>
-#include <utility>
 #include <vector>
 
 using namespace std;
 
 const int MAX_VAL = 1000000000;
-unordered_map<int, vector<int>> agentInfo;  // 힘, 지능, 민첩, 총합, 능력치 중 최대값
 vector<vector<int>> combiList;
 vector<vector<int>> permuList;
 vector<int> curCombi;
-vector<int> pickedCombi;
 
 void makeCombination(int n, int k, int cnt, int cur) {
     if (cnt == k) {
@@ -42,6 +38,7 @@ int main(void) {
     } while (next_permutation(elements.begin(), elements.end()));
 
     for (test_case = 1; test_case <= T; ++test_case) {
+        vector<int> agentInfo[50];  // 힘, 지능, 민첩, 총합, 능력치 중 최대값
         int n;
         cin >> n;
         for (int agentNum = 0; agentNum < n; ++agentNum) {
@@ -60,10 +57,7 @@ int main(void) {
 
         // 요원 수가 모자랄 경우 -1
         if (n < 3) {
-            // cout << "here"
-            //      << "\n";
             cout << "#" << test_case << " " << -1 << '\n';
-            agentInfo.clear();
             continue;
         }
 
@@ -74,9 +68,9 @@ int main(void) {
         int minVal = MAX_VAL;
         for (auto combi : combiList) {
             int remainAgentSum = 0;
-            for (const auto [key, val] : agentInfo) {
-                if (key != combi[0] && key != combi[1] && key != combi[2]) {
-                    int curSum = val[3] - val[4];
+            for (int i = 0; i < n; ++i) {
+                if (i != combi[0] && i != combi[1] && i != combi[2]) {
+                    int curSum = agentInfo[i][3] - agentInfo[i][4];
                     remainAgentSum += curSum;
                 }
             }
@@ -89,32 +83,12 @@ int main(void) {
                     curVal += remain;
                 }
                 curVal += remainAgentSum;
-                // if (minVal >= curVal) {
-                //     minVal = curVal;
-                //     pickedCombi = combi;
-                // }
                 minVal = min(minVal, curVal);
             }
         }
-        // cout << "pickedCombi : " << pickedCombi[0] << " " << pickedCombi[1] << " " << pickedCombi[2] << '\n';
-        // int remainAgentSum = 0;
-        // for (const auto [key, val] : agentInfo) {
-        //     if (key != pickedCombi[0] && key != pickedCombi[1] && key != pickedCombi[2]) {
-        //         int curSum = val[3] - val[4];
-        //         remainAgentSum += curSum;
-        //     }
-        // }
-        // cout << "minVal : "
-        //      << minVal << "\n";
-        // cout << "remainAgentSum : "
-        //      << remainAgentSum << "\n";
-        // int result = minVal + remainAgentSum;
-        // cout << "#" << test_case << " " << result << '\n';
         cout << "#" << test_case << " " << minVal << '\n';
-        agentInfo.clear();
         combiList.clear();
         curCombi.clear();
-        pickedCombi.clear();
     }
 
     return 0;
