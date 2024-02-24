@@ -16,7 +16,8 @@ extern int distribute(int K);
 #define CMD_REMOVE 3
 #define CMD_DISTRIBUTE 4
 
-static bool run() {
+static bool run()
+{
   int q;
   scanf("%d", &q);
 
@@ -25,12 +26,15 @@ static bool run() {
   int cmd, ans, ret = 0;
   bool okay = false;
 
-  for (int i = 0; i < q; ++i) {
+  for (int i = 0; i < q; ++i)
+  {
     scanf("%d", &cmd);
-    switch (cmd) {
+    switch (cmd)
+    {
     case CMD_INIT:
       scanf("%d", &n);
-      for (int j = 0; j < n; ++j) {
+      for (int j = 0; j < n; ++j)
+      {
         scanf("%d %d", &midArr[j], &mnumArr[j]);
       }
       init(n, midArr, mnumArr);
@@ -40,19 +44,28 @@ static bool run() {
       scanf("%d %d %d %d", &mid, &mnum, &mparent, &ans);
       ret = add(mid, mnum, mparent);
       if (ans != ret)
+      {
         okay = false;
+        printf("false here cmd num : %d\n", cmd);
+      }
       break;
     case CMD_REMOVE:
       scanf("%d %d", &mid, &ans);
       ret = remove(mid);
       if (ans != ret)
+      {
         okay = false;
+        printf("false here cmd num : %d\n", cmd);
+      }
       break;
     case CMD_DISTRIBUTE:
       scanf("%d %d", &k, &ans);
       ret = distribute(k);
       if (ans != ret)
+      {
         okay = false;
+        printf("false here cmd num : %d\n", cmd);
+      }
       break;
     default:
       okay = false;
@@ -62,14 +75,16 @@ static bool run() {
   return okay;
 }
 
-int main() {
+int main()
+{
   setbuf(stdout, NULL);
   // freopen("sample_input.txt", "r", stdin);
 
   int T, MARK;
   scanf("%d %d", &T, &MARK);
 
-  for (int tc = 1; tc <= T; tc++) {
+  for (int tc = 1; tc <= T; tc++)
+  {
     int score = run() ? MARK : 0;
     printf("#%d %d\n", tc, score);
   }
