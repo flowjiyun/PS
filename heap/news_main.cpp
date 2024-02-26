@@ -21,8 +21,7 @@ extern int checkUser(int mTime, int mUID, int mRetIDs[]);
 static int gids[30];
 static int ansids[3];
 static int retids[3];
-static bool run()
-{
+static bool run() {
   int N, K;
   int cmd, ans, ret;
   int time, num, uid, gid, nid, delay;
@@ -31,11 +30,9 @@ static bool run()
   bool okay = false;
 
   scanf("%d", &Q);
-  for (int q = 0; q < Q; ++q)
-  {
+  for (int q = 0; q < Q; ++q) {
     scanf("%d", &cmd);
-    switch (cmd)
-    {
+    switch (cmd) {
     case INIT:
       scanf("%d %d", &N, &K);
       init(N, K);
@@ -44,8 +41,7 @@ static bool run()
 
     case REGI:
       scanf("%d %d %d", &time, &uid, &num);
-      for (int m = 0; m < num; m++)
-      {
+      for (int m = 0; m < num; m++) {
         scanf("%d", &gids[m]);
       }
       registerUser(time, uid, num, gids);
@@ -54,8 +50,7 @@ static bool run()
     case OFFER:
       scanf("%d %d %d %d %d", &time, &nid, &delay, &gid, &ans);
       ret = offerNews(time, nid, delay, gid);
-      if (ans != ret)
-      {
+      if (ans != ret) {
         okay = false;
       }
       break;
@@ -72,20 +67,14 @@ static bool run()
       num = ans;
       if (num > 3)
         num = 3;
-      for (int m = 0; m < num; m++)
-      {
+      for (int m = 0; m < num; m++) {
         scanf("%d", &ansids[m]);
       }
-      if (ans != ret)
-      {
+      if (ans != ret) {
         okay = false;
-      }
-      else
-      {
-        for (int m = 0; m < num; m++)
-        {
-          if (ansids[m] != retids[m])
-          {
+      } else {
+        for (int m = 0; m < num; m++) {
+          if (ansids[m] != retids[m]) {
             okay = false;
           }
         }
@@ -100,16 +89,14 @@ static bool run()
   return okay;
 }
 
-int main()
-{
+int main() {
   setbuf(stdout, NULL);
-  // freopen("sample_input.txt", "r", stdin);
+  freopen("sample_input.txt", "r", stdin);
 
   int T, MARK;
   scanf("%d %d", &T, &MARK);
 
-  for (int tc = 1; tc <= T; tc++)
-  {
+  for (int tc = 1; tc <= T; tc++) {
     int score = run() ? MARK : 0;
     printf("#%d %d\n", tc, score);
   }
