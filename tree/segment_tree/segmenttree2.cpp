@@ -108,6 +108,7 @@ int main(int argc, char **argv) {
     SegmentTree oddTree(
         halfN, oddData, [](int a, int b) { return a + b; }, 0);
 
+    cout << "#" << test_case << " ";
     for (int i = 0; i < q; ++i) {
       int command, a, b;
       cin >> command >> a >> b;
@@ -126,7 +127,6 @@ int main(int argc, char **argv) {
         int oddStartIndex;
         int evenEndIndex;
         int oddEndIndex;
-        int halfQSize;
         int ret;
         if (a % 2 == 0) {
           evenStartIndex = a / 2;
@@ -134,13 +134,12 @@ int main(int argc, char **argv) {
           if (qSize % 2 == 0) {
             evenEndIndex = evenStartIndex + halfQSize - 1;
             oddEndIndex = oddStartIndex + halfQSize - 1;
-            ret =
-                evenTree.query(evenStartIndex, evenEndIndex, 1, 0, halfN - 1) -
-                oddTree.query(oddStartIndex, oddEndIndex, 1, 0, halfN - 1);
           } else {
             evenEndIndex = evenStartIndex + halfQSize;
             oddEndIndex = oddStartIndex + halfQSize - 1;
           }
+          ret = evenTree.query(evenStartIndex, evenEndIndex, 1, 0, halfN - 1) -
+                oddTree.query(oddStartIndex, oddEndIndex, 1, 0, halfN - 1);
         } else {
           oddStartIndex = a / 2;
           evenStartIndex = oddStartIndex + 1;
@@ -151,9 +150,13 @@ int main(int argc, char **argv) {
             oddEndIndex = oddStartIndex + halfQSize;
             evenEndIndex = evenStartIndex + halfQSize - 1;
           }
+          ret = oddTree.query(oddStartIndex, oddEndIndex, 1, 0, halfN - 1) -
+                evenTree.query(evenStartIndex, evenEndIndex, 1, 0, halfN - 1);
         }
+        cout << ret << " ";
       }
     }
+    cout << "\n";
   }
   return 0; // 정상종료시 반드시 0을 리턴해야합니다.
 }
