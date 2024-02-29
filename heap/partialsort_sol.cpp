@@ -29,7 +29,9 @@ public:
     int index = mSize;
     int parent = mSize / 2;
 
-    while (parent != 0 && mData[index].income > mData[parent].income) {
+    while (parent != 0 && (mData[index].income > mData[parent].income ||
+                           (mData[index].income == mData[parent].income &&
+                            mData[index].uID < mData[parent].uID))) {
       swap(mData[index], mData[parent]);
 
       index /= 2;
@@ -51,11 +53,15 @@ public:
 
     while (true) {
       if (leftChildIndex <= mSize &&
-          mData[leftChildIndex].income > mData[largeIndex].income) {
+          (mData[leftChildIndex].income > mData[largeIndex].income ||
+           (mData[leftChildIndex].income == mData[largeIndex].income &&
+            mData[leftChildIndex].uID < mData[largeIndex].uID))) {
         largeIndex = leftChildIndex;
       }
       if (rightChildIndex <= mSize &&
-          mData[rightChildIndex].income > mData[largeIndex].income) {
+          (mData[rightChildIndex].income > mData[largeIndex].income ||
+           (mData[rightChildIndex].income == mData[largeIndex].income &&
+            mData[rightChildIndex].uID < mData[largeIndex].uID))) {
         largeIndex = rightChildIndex;
       }
       if (largeIndex == parentIndex) {
